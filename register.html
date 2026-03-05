@@ -19,11 +19,11 @@
       <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <form> 
+                <form id="form"> 
                     <div class="form-group-row">
                         <div class="col-sm-4 col-md-6 col-lg-4"> 
-                            <input type="text" class="form-control" placeholder="Enter Full Name" 
-                            name="full_name"/>  
+                            <input type="text" class="form-control" id="full_name" placeholder="Enter Full Name" 
+                            name="name"/>  
                         </div>
                         <div class="col-sm-4 col-md-6 col-lg-4"> 
                             <input type="text" class="form-control" placeholder="Enter Father Name" 
@@ -42,7 +42,7 @@
                             name="password"/>  
                         </div>
                         <div class="col-sm-4 col-md-6 col-lg-4"> 
-                            <select class="form-control">
+                            <select class="form-control" name="qualification">
                                 <option value="">Please select options</option>
                                 <option value="10th">10th</option>
                                 <option value="12th">12th</option>
@@ -51,7 +51,7 @@
                             </select>
                         </div>
                         <div class="col-sm-4 col-md-6 col-lg-4"> 
-                            <select class="form-control">
+                            <select class="form-control" name="gender">
                                 <option value="">Please select gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option> 
@@ -78,63 +78,66 @@
                             <input type="number" class="form-control" placeholder="Enter account number" 
                             name="account_number"/>  
                         </div>
+                        <div class="col-sm-4 col-md-6 col-lg-4" class="bank_group"> 
+                            <input type="submit" class="primary btn btn-primary" class="form-control" value="Submit">  
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
       </div>
+      <script> 
+            document.getElementById("form").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            const data = {
+                name: formData.get("name"),
+                father_name: formData.get("father_name"),
+                aadhaar_number: formData.get("aadhaar_number"),
+                email: formData.get("email"),
+                password: formData.get("password")
+            };
+
+            fetch("https://nsedm.nielitkohima.in/api/mca_practical_form.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log("Success:", result);
+                alert("Data submitted successfully");
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        });
+        </script>
     </body>
 </html>
 
 
 
-<!-- document.getElementById("jobForm").addEventListener("submit", function(e) {
-    e.preventDefault();
 
-    const formData = new FormData(this);
-
-    const data = {
-        job_title: formData.get("job_title"),
-        location: formData.get("location"),
-        no_of_openings: formData.get("no_of_openings"),
-        experience: formData.get("experience"),
-        skillset: formData.get("skillset")
-    };
-
-    fetch("https://yourapi.com/api/jobs", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(result => {
-        console.log("Success:", result);
-        alert("Data submitted successfully");
-    })
-    .catch(error => {
-        console.error("Error:", error);
-    });
-}); -->
-
-
-<!-- <div class="col-sm-4 col-md-6 col-lg-4 mb-3 text-center">
+/* <div class="col-sm-4 col-md-6 col-lg-4 mb-3 text-center">
     <img src="images/photo1.jpg" 
          class="img-fluid img-thumbnail" 
          alt="Passport Photo">
     <p class="mt-2">Passport Photo</p>
-</div> -->
-<!-- img-fluid -	Makes image responsive (auto resize)
+</div> */ /* img-fluid -	Makes image responsive (auto resize)
 w-100	Takes full width of column
 rounded	Rounded corners
 img-thumbnail	Adds border & padding
 mb-3	Adds spacing below image -->
 
- <!--  <form action="" method="get">
+ <form action="" method="get">
             <input type="text" placeholder="Enter Your Name" name="full_name" maxlength="10"/>
             <input type="text" placeholder="Enter Father's Name" name="father_name"/>
             <input type="email" placeholder="Enter Email" name="email"/>
             <input type="password" placeholder="Enter Password" name="password"/>
             <input type="submit" value="Submit"/>
-        </form> -->
+        </form> */
